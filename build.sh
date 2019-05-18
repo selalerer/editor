@@ -39,9 +39,34 @@ do
 	fi
 done
 
-echo "Linking..."
+NEED_LINK=false
+if [ ! -f $BIN_NAME ]
+then
+	NEED_LINK=true
+fi
+
 OBJS=`find $OBJ_FOLDER -name '*.o'`
-g++ $OBJS $LFLAGS -o $BIN_NAME
+
+if ! $NEED_LINK
+then
+	for F in $OBJS
+	do
+		if [ $F -nt $BIN_NAME ]
+		then
+			NEED_LINK=true
+			echo "$F is newer than $BIN_NAME"
+			break
+		fi
+	done
+fi
+
+if $NEED_LINK
+then
+	echo "Linking..."
+	g++ $OBJS $LFLAGS -o $BIN_NAME
+else
+	echo "$BIN_NAME is up to date." 
+fi
 
 
 
