@@ -14,16 +14,16 @@ class IAppBuilder;
 class App
 {
 private:
-	GtkApplication* pApp;
+    GtkApplication* pApp;
     std::list<Window*> children;
 public:
-	App();
-	~App();
-	int run(IAppBuilder& appBuilder, int argc, char* argv[]);
-	Window* createWindow();
+    App();
+    ~App();
+    int run(IAppBuilder& appBuilder, int argc, char* argv[]);
+    Window* createWindow();
     void destroyWindow(Window* pWin);
 private:
-	static void activate (GtkApplication* app, gpointer user_data);
+    static void activate (GtkApplication* app, gpointer user_data);
 };
 
 } // namespace gtkw

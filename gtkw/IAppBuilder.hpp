@@ -10,7 +10,7 @@ class App;
 class IAppBuilder
 {
 public:
-	virtual void Build(App& app) = 0;
+    virtual void Build(App& app) = 0;
 };
 
 } // namespace gtkw

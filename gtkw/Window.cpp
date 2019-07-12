@@ -28,7 +28,7 @@ void Window::setTitle(const gchar* title)
 
 void Window::show()
 {
-	gtk_widget_show_all(pWin);
+    gtk_widget_show_all(pWin);
 }
 
 } // namespace

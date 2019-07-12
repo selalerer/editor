@@ -11,12 +11,12 @@ class App;
 
 class Window
 {
-	friend class App;
+    friend class App;
 private:
-	Window(GtkWidget* pWin);
-	GtkWidget* pWin;
+    Window(GtkWidget* pWin);
+    GtkWidget* pWin;
 public:
-	void show();
+    void show();
     void maximize();
     void setTitle(const gchar* title);
     virtual ~Window();

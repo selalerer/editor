@@ -11,41 +11,41 @@ namespace gtkw
 
 App::App()
 {
-	this->pApp = gtk_application_new("com.selalerer.editor", G_APPLICATION_FLAGS_NONE);
+    this->pApp = gtk_application_new("com.selalerer.editor", G_APPLICATION_FLAGS_NONE);
 }
 
 namespace 
 {
-	struct ActivateParam
-	{
-		ActivateParam(App& app, IAppBuilder& appBuilder):app(app),appBuilder(appBuilder) {}
-		App& app;
-		IAppBuilder& appBuilder;
-	};
+    struct ActivateParam
+    {
+        ActivateParam(App& app, IAppBuilder& appBuilder):app(app),appBuilder(appBuilder) {}
+        App& app;
+        IAppBuilder& appBuilder;
+    };
 }
 
 int App::run(IAppBuilder& appBuilder, int argc, char* argv[])
 {
-	//std::cerr << "Connecting activate to App::activate()" << std::endl;
-	g_signal_connect (this->pApp, "activate", G_CALLBACK (&App::activate), new ActivateParam(*this, appBuilder));
-	return g_application_run (G_APPLICATION (this->pApp), argc, argv);
+    //std::cerr << "Connecting activate to App::activate()" << std::endl;
+    g_signal_connect (this->pApp, "activate", G_CALLBACK (&App::activate), new ActivateParam(*this, appBuilder));
+    return g_application_run (G_APPLICATION (this->pApp), argc, argv);
 }
 
 void App::activate(GtkApplication* unused, gpointer user_data)
 {
-	//std::cerr << "activate() called" << std::endl;
+    //std::cerr << "activate() called" << std::endl;
 
-	ActivateParam* pParam = (ActivateParam*)user_data;
-	App& app = pParam->app;
-	IAppBuilder& appBuilder = pParam->appBuilder;
-	delete pParam;
-	
-	appBuilder.Build(app);
+    ActivateParam* pParam = (ActivateParam*)user_data;
+    App& app = pParam->app;
+    IAppBuilder& appBuilder = pParam->appBuilder;
+    delete pParam;
+    
+    appBuilder.Build(app);
 }
 
 Window* App::createWindow()
 {
-	auto pWin = new Window(gtk_application_window_new(this->pApp));
+    auto pWin = new Window(gtk_application_window_new(this->pApp));
     children.push_front(pWin);
     return pWin;
 }
@@ -68,7 +68,7 @@ App::~App()
     }
     children.clear();
 
-	Utils::unrefGObject(this->pApp);
+    Utils::unrefGObject(this->pApp);
     this->pApp = 0;
 }
 
