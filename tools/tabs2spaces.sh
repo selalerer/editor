@@ -1,0 +1,27 @@
+#!/bin/bash
+
+CPP_FILES=`find . -name ''\*.cpp''`
+HPP_FILES=`find . -name ''\*.hpp''`
+SH_FILES=`find . -name ''\*.sh''`
+
+FILES="$CPP_FILES $HPP_FILES $SH_FILES"
+
+for file in $FILES
+do
+    expand -t4 $file > "$file.t2s123"
+done
+
+TMP_FILES=`find . -name ''\*.t2s123''`
+
+for TMP_FILE in $TMP_FILES
+do
+    echo "handling $TMP_FILE"
+    ORIG_FILE_NAME=${TMP_FILE:0: -7}
+    echo "truncating $ORIG_FILE_NAME"
+    truncate -s0 "$ORIG_FILE_NAME"
+    echo "copying $TMP_FILE contents to $ORIG_FILE_NAME"
+    cat "$TMP_FILE" >> "$ORIG_FILE_NAME"
+    echo "deleting $TMP_FILE"
+    rm "$TMP_FILE"
+done
+
