@@ -2,8 +2,8 @@
 
 BIN_NAME=editor
 OBJ_FOLDER=obj
-CFLAGS="-I. `pkg-config --cflags gtk+-3.0`"
-LFLAGS="`pkg-config --libs gtk+-3.0`"
+CFLAGS="-g -I. `pkg-config --cflags gtk+-3.0`"
+LFLAGS="-g `pkg-config --libs gtk+-3.0`"
 
 CPPS=`find . -name '*.cpp'`
 

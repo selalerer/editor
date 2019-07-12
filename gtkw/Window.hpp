@@ -17,6 +17,9 @@ private:
 	GtkWidget* pWin;
 public:
 	void show();
+    void maximize();
+    void setTitle(const gchar* title);
+    virtual ~Window();
 };
 
 } // namespace gtkw

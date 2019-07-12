@@ -11,7 +11,9 @@ class AppBuilder : public gtkw::IAppBuilder
 public:
 	virtual void Build(gtkw::App& app)
 	{
-		std::unique_ptr<gtkw::Window> pWindow(app.createWindow());
+		gtkw::Window* pWindow = app.createWindow();
+        pWindow->setTitle("editor");
+        pWindow->maximize();
 		pWindow->show();
 		//std::cerr << "Showed window" << std::endl;
 	}

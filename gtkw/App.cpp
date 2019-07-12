@@ -4,6 +4,7 @@
 #include "gtkw/App.hpp"
 #include "gtkw/IAppBuilder.hpp"
 #include "gtkw/Window.hpp"
+#include "gtkw/Utils.hpp"
 
 namespace gtkw
 {
@@ -44,12 +45,32 @@ void App::activate(GtkApplication* unused, gpointer user_data)
 
 Window* App::createWindow()
 {
-	return new Window(gtk_application_window_new(this->pApp));
+	auto pWin = new Window(gtk_application_window_new(this->pApp));
+    children.push_front(pWin);
+    return pWin;
+}
+
+void App::destroyWindow(Window* pWin)
+{
+    auto sizeBefore = children.size();
+    children.remove(pWin);
+    auto sizeAfter = children.size();
+    if (sizeAfter != sizeBefore - 1)
+        throw std::runtime_error("App::destroyWindow(Window*): Cannot destory a Window that isn't part of this App.");
+    delete pWin;
 }
 
 App::~App()
 {
-	g_object_unref(this->pApp);
+    for (auto pChild : children)
+    {
+        delete pChild;
+    }
+    children.clear();
+
+	Utils::unrefGObject(this->pApp);
+    this->pApp = 0;
 }
 
-}
+} // namespace gtkw
+

@@ -1,13 +1,29 @@
 
 #include "gtkw/Window.hpp"
 
+#include "gtkw/Utils.hpp"
+
 namespace gtkw
 {
 
 Window::Window(GtkWidget* pWin): pWin(pWin)
 {
-	gtk_window_set_title (GTK_WINDOW (GTK_WINDOW(pWin)), "Window");
-	gtk_window_set_default_size (GTK_WINDOW (GTK_WINDOW(pWin)), 200, 200);
+}
+
+Window::~Window()
+{
+    //Utils::destroyWidget(pWin);
+    pWin = 0;
+}
+
+void Window::maximize()
+{
+    gtk_window_maximize(GTK_WINDOW(pWin));
+}
+
+void Window::setTitle(const gchar* title)
+{
+    gtk_window_set_title(GTK_WINDOW(pWin), title);
 }
 
 void Window::show()
