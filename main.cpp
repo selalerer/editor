@@ -12,7 +12,7 @@ public:
 	virtual void Build(gtkw::App& app)
 	{
 		gtkw::Window* pWindow = app.createWindow();
-        pWindow->setTitle("editor");
+        pWindow->setTitle("sela / editor");
         pWindow->maximize();
 		pWindow->show();
 		//std::cerr << "Showed window" << std::endl;

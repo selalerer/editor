@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN_NAME=editor
+BIN_NAME="selaeditor"
 OBJ_FOLDER=obj
 CFLAGS="-g -I. `pkg-config --cflags gtk+-3.0`"
 LFLAGS="-g `pkg-config --libs gtk+-3.0`"
